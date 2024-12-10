@@ -6,33 +6,40 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 	height := len(floorContent)
 	width := len(floorContent[0])
 
-	root := makeNode(floorContent, 0, 0,width, height)
+	// On Construie la racine de l'arbre
+	root := makeNode(floorContent, 0, 0, width, height)
 
+	// Retourner le quadtree
 	q = Quadtree{
-		width: width,
+		width:  width,
 		height: height,
-		root: root,
+		root:   root,
 	}
 	return
 }
 
+// makeNode construit un nœud de l'arbre comme on veux donc de façon récursive
 func makeNode(grid [][]int, topLeftX, topLeftY, width, height int) *node {
+	//on Vérifie si la zone est homogène
 	isHomogeneous, terrainType := isZoneHomogeneous(grid, topLeftX, topLeftY, width, height)
 
-	if isHomogeneous{
+	if isHomogeneous {
+		// Si la zone est homogène, on créé une feuille
 		return &node{
 			topLeftX: topLeftX,
 			topLeftY: topLeftY,
-			width: width,
-			height: height,
-			content: terrainType,
-			isLeaf: true,
+			width:    width,
+			height:   height,
+			content:  terrainType,
+			isLeaf:   true,
 		}
 	}
 
-	halfWidth := width/2
-	halfHeight :=height/2
+	// et on Divise la zone en quatre sous-zones
+	halfWidth := width / 2
+	halfHeight := height / 2
 
+	// On Construit un nœud interne
 	return &node{
 		topLeftX:        topLeftX,
 		topLeftY:        topLeftY,
@@ -47,6 +54,7 @@ func makeNode(grid [][]int, topLeftX, topLeftY, width, height int) *node {
 	}
 }
 
+// isZoneHomogeneous est notre fonction qui vérifie si toutes les cases d'une zone ont le même type
 func isZoneHomogeneous(grid [][]int, startX, startY, width, height int) (bool, int) {
 	firstValue := grid[startY][startX]
 	for y := startY; y < startY+height; y++ {
