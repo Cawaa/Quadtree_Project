@@ -401,3 +401,76 @@ func equalContent(c1, c2 [][]int) bool {
 	return true
 
 }
+
+// Test rajouté par l'équipe encadrant ce projet
+func TestGetContent(t *testing.T) {
+    // Exemple de contenu du sol
+    floorContent := [][]int{
+        {1, 1, 2, 2},
+        {1, 1, 2, 2},
+        {3, 3, 4, 4},
+        {3, 3, 4, 4},
+    }
+
+    // Création du quadtree à partir du contenu du sol
+    q := MakeFromArray(floorContent)
+
+    // Tableau pour contenir le résultat
+    contentHolder := make([][]int, 2)
+    for i := range contentHolder {
+        contentHolder[i] = make([]int, 2)
+    }
+
+    // Appel de la fonction GetContent
+    q.GetContent(1, 1, contentHolder)
+
+    // Vérification des résultats
+    expectedContent := [][]int{
+        {1, 2},
+        {3, 4},
+    }
+
+    for y := range contentHolder {
+        for x := range contentHolder[y] {
+            if contentHolder[y][x] != expectedContent[y][x] {
+                t.Errorf("Expected contentHolder[%d][%d] to be %d, but got %d", y, x, expectedContent[y][x], contentHolder[y][x])
+            }
+        }
+    }
+}
+
+func TestGetContentOutOfBounds(t *testing.T) {
+    // Exemple de contenu du sol
+    floorContent := [][]int{
+        {1, 1, 2, 2},
+        {1, 1, 2, 2},
+        {3, 3, 4, 4},
+        {3, 3, 4, 4},
+    }
+
+    // Création du quadtree à partir du contenu du sol
+    q := MakeFromArray(floorContent)
+
+    // Tableau pour contenir le résultat
+    contentHolder := make([][]int, 2)
+    for i := range contentHolder {
+        contentHolder[i] = make([]int, 2)
+    }
+
+    // Appel de la fonction GetContent avec des coordonnées hors limites
+    q.GetContent(5, 5, contentHolder)
+
+    // Vérification des résultats
+    expectedContent := [][]int{
+        {-1, -1},
+        {-1, -1},
+    }
+
+    for y := range contentHolder {
+        for x := range contentHolder[y] {
+            if contentHolder[y][x] != expectedContent[y][x] {
+                t.Errorf("Expected contentHolder[%d][%d] to be %d, but got %d", y, x, expectedContent[y][x], contentHolder[y][x])
+            }
+        }
+    }
+}

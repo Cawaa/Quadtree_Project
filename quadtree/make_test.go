@@ -552,3 +552,112 @@ func equalToLeaf(n *node, content int) bool {
 		equalToLeaf(n.bottomRightNode, content)
 
 }
+
+func TestMakeFromArray(t *testing.T) {
+	// Exemple de contenu du sol
+	floorContent := [][]int{
+		{1, 1, 2, 2},
+		{1, 1, 2, 2},
+		{3, 3, 4, 4},
+		{3, 3, 4, 4},
+	}
+
+	// Création du quadtree à partir du contenu du sol
+	q := MakeFromArray(floorContent)
+
+	// Vérification des dimensions du quadtree
+	if q.width != 4 {
+		t.Errorf("Expected quadtree width to be 4, but got %d", q.width)
+	}
+	if q.height != 4 {
+		t.Errorf("Expected quadtree height to be 4, but got %d", q.height)
+	}
+
+	// Vérification du contenu du quadtree
+	contentHolder := make([][]int, 4)
+	for i := range contentHolder {
+		contentHolder[i] = make([]int, 4)
+	}
+
+	q.GetContent(0, 0, contentHolder)
+
+	expectedContent := [][]int{
+		{1, 1, 2, 2},
+		{1, 1, 2, 2},
+		{3, 3, 4, 4},
+		{3, 3, 4, 4},
+	}
+
+	for y := range contentHolder {
+		for x := range contentHolder[y] {
+			if contentHolder[y][x] != expectedContent[y][x] {
+				t.Errorf("Expected contentHolder[%d][%d] to be %d, but got %d", y, x, expectedContent[y][x], contentHolder[y][x])
+			}
+		}
+	}
+}
+
+func TestMakeFromArrayHomogeneous(t *testing.T) {
+	// Exemple de contenu du sol homogène
+	floorContent := [][]int{
+		{1, 1},
+		{1, 1},
+	}
+
+	// Création du quadtree à partir du contenu du sol homogène
+	q := MakeFromArray(floorContent)
+
+	// Vérification des dimensions du quadtree
+	if q.width != 2 {
+		t.Errorf("Expected quadtree width to be 2, but got %d", q.width)
+	}
+	if q.height != 2 {
+		t.Errorf("Expected quadtree height to be 2, but got %d", q.height)
+	}
+
+	// Vérification que la racine est une feuille avec le bon contenu
+	if !q.root.isLeaf {
+		t.Errorf("Expected root node to be a leaf")
+	}
+	if q.root.content != 1 {
+		t.Errorf("Expected root node content to be 1, but got %d", q.root.content)
+	}
+}
+
+func TestMakeFromArrayMixed(t *testing.T) {
+	// Exemple de contenu du sol mixte
+	floorContent := [][]int{
+		{1, 2},
+		{3, 4},
+	}
+
+	// Création du quadtree à partir du contenu du sol mixte
+	q := MakeFromArray(floorContent)
+
+	// Vérification des dimensions du quadtree
+	if q.width != 2 {
+		t.Errorf("Expected quadtree width to be 2, but got %d", q.width)
+	}
+	if q.height != 2 {
+		t.Errorf("Expected quadtree height to be 2, but got %d", q.height)
+	}
+
+	// Vérification que la racine n'est pas une feuille
+	if q.root.isLeaf {
+		t.Errorf("Expected root node to not be a leaf")
+	}
+
+	// Vérification du contenu des feuilles
+	if q.root.topLeftNode.content != 1 {
+		t.Errorf("Expected topLeftNode content to be 1, but got %d", q.root.topLeftNode.content)
+	}
+	if q.root.topRightNode.content != 2 {
+		t.Errorf("Expected topRightNode content to be 2, but got %d", q.root.topRightNode.content)
+	}
+	if q.root.bottomLeftNode.content != 3 {
+		t.Errorf("Expected bottomLeftNode content to be 3, but got %d", q.root.bottomLeftNode.content)
+	}
+	if q.root.bottomRightNode.content != 4 {
+		t.Errorf("Expected bottomRightNode content to be 4, but got %d", q.root.bottomRightNode.content)
+	}
+}
