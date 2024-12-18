@@ -41,22 +41,38 @@ func (f *Floor) updateGridFloor(topLeftX, topLeftY int) {
 	}
 }
 
-// le sol est récupéré depuis un tableau, qui a été lu dans un fichier
-//
-// la version actuelle recopie fullContent dans content, ce qui n'est pas
-// le comportement attendu dans le rendu du projet
-func (f *Floor) updateFromFileFloor(topLeftX, topLeftY int) {
-	for y := 0; y < len(f.content); y++ {
-		for x := 0; x < len(f.content[y]); x++ {
-			if y < len(f.fullContent) && x < len(f.fullContent[y]) {
-				f.content[y][x] = f.fullContent[y][x]
-			} else {
-				f.content[y][x] = -1
-			}
-		}
-	}
-}
 
+// updateFromFileFloor met à jour le contenu du sol en fonction des coordonnées
+// fournies (topLeftX, topLeftY) en utilisant les données de fullContent.
+//
+// Paramètres:
+// - topLeftX: Coordonnée X du coin supérieur gauche
+// - topLeftY: Coordonnée Y du coin supérieur gauche
+//
+// La fonction parcourt chaque cellule de content et calcule les coordonnées
+// absolues correspondantes dans fullContent. Si les coordonnées absolues sont
+// valides (c'est-à-dire qu'elles se trouvent dans les limites de fullContent),
+// la cellule de content est mise à jour avec la valeur correspondante de fullContent.
+// Si les coordonnées sont hors des limites, la cellule de content est remplie
+// avec une valeur par défaut (-1).
+func (f *Floor) updateFromFileFloor(topLeftX, topLeftY int) {
+    for y := 0; y < len(f.content); y++ {
+        for x := 0; x < len(f.content[y]); x++ {
+            // Calcul des coordonnées absolues dans fullContent
+            absX := topLeftX + x
+            absY := topLeftY + y
+
+            // Vérifier si les coordonnées absolues sont valides dans fullContent
+            if absY >= 0 && absY < len(f.fullContent) && absX >= 0 && absX < len(f.fullContent[absY]) {
+                // Mettre à jour la cellule de content avec la valeur de fullContent
+                f.content[y][x] = f.fullContent[absY][absX]
+            } else {
+                // Si hors des limites, remplir avec une valeur par défaut (-1)
+                f.content[y][x] = -1
+            }
+        }
+    }
+}
 // le sol est récupéré depuis un quadtree, qui a été lu dans un fichier
 func (f *Floor) updateQuadtreeFloor(topLeftX, topLeftY int) {
 	f.quadtreeContent.GetContent(topLeftX, topLeftY, f.content)

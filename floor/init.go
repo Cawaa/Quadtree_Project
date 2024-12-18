@@ -54,5 +54,5 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 		// Ajouter la ligne au tableau floorContent
 		floorContent = append(floorContent, row)
 	}	
-	return
+	return floorContent
 }

@@ -2,20 +2,28 @@ package quadtree
 
 // MakeFromArray construit un quadtree représentant un terrain
 // étant donné un tableau représentant ce terrain.
+//
+// Paramètres:
+// - floorContent: Un tableau 2D représentant le contenu du sol.
+//
+// Retourne:
+// - Un quadtree représentant le terrain.
 func MakeFromArray(floorContent [][]int) (q Quadtree) {
+	// On obtient la hauteur du tableau
 	height := len(floorContent)
+	// On obtient la largeur du tableau
 	width := len(floorContent[0])
 
-	// On Construie la racine de l'arbre
+	// On construit la racine de l'arbre en utilisant la fonction makeNode
 	root := makeNode(floorContent, 0, 0, width, height)
 
-	// Retourner le quadtree
+	// On retourne le quadtree avec les dimensions et la racine
 	q = Quadtree{
 		width:  width,
 		height: height,
 		root:   root,
 	}
-	return
+	return q
 }
 
 // makeNode construit un nœud de l'arbre comme on veux donc de façon récursive
