@@ -25,6 +25,8 @@ func (f Floor) Draw(screen *ebiten.Image) {
 					image.Rect(shiftX, 0, shiftX+configuration.Global.TileSize, configuration.Global.TileSize),
 				).(*ebiten.Image), op)
 			}
+
+			
 		}
 	}
 

@@ -15,5 +15,14 @@ func (f Floor) Blocking(characterXPos, characterYPos, camXPos, camYPos int) (blo
 	blocking[1] = relativeXPos >= configuration.Global.NumTileX-1 || f.content[relativeYPos][relativeXPos+1] == -1
 	blocking[2] = relativeYPos >= configuration.Global.NumTileY-1 || f.content[relativeYPos+1][relativeXPos] == -1
 	blocking[3] = relativeXPos <= 0 || f.content[relativeYPos][relativeXPos-1] == -1
+
+	// si le waterblock est activé dans le JSON, cela bloquera
+	// les cases d'eau.	
+	if configuration.Global.Waterblock {
+		blocking[0] = relativeYPos <= 0 || f.content[relativeYPos-1][relativeXPos] == 4 || f.content[relativeYPos-1][relativeXPos] == -1
+		blocking[1] = relativeXPos >= configuration.Global.NumTileX-1 || f.content[relativeYPos][relativeXPos+1] == 4 || f.content[relativeYPos][relativeXPos+1] == -1
+		blocking[2] = relativeYPos >= configuration.Global.NumTileY-1 || f.content[relativeYPos+1][relativeXPos] == 4 || f.content[relativeYPos+1][relativeXPos] == -1
+		blocking[3] = relativeXPos <= 0 || f.content[relativeYPos][relativeXPos-1] == 4 || f.content[relativeYPos][relativeXPos-1] == -1
+	}
 	return blocking
 }
