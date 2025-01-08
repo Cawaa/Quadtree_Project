@@ -10,6 +10,6 @@
     "FloorKind": 2,
     "FloorFile": "../floor-files/validation",
     "Waterblock": false,
-    "EauAnime" : true,
+    "WaterAnimated" : true,
     "RandomFloor": true
 }

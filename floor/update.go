@@ -12,6 +12,11 @@ import (
 // On aurait pu se passer de cette fonction et tout faire dans Draw.
 // Mais cela permet de découpler le calcul de l'affichage.
 func (f *Floor) Update(camXPos, camYPos int) {
+	f.animation++
+	if f.animation == 32 {
+		f.animation = 0
+	}
+
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
 	switch configuration.Global.FloorKind {
