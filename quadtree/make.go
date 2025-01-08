@@ -1,5 +1,13 @@
 package quadtree
 
+import (
+    "math/rand"
+    "os"
+    "bufio"
+    "log"
+    "gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
+	"fmt"
+)
 // MakeFromArray construit un quadtree représentant un terrain
 // étant donné un tableau représentant ce terrain.
 //
@@ -9,6 +17,20 @@ package quadtree
 // Retourne:
 // - Un quadtree représentant le terrain.
 func MakeFromArray(floorContent [][]int) (q Quadtree) {
+	// On calcule la largeur et la hauteur du terrain
+	if configuration.Global.RandomFloor {
+		for i := range floorContent {
+			for j := range floorContent[i] {
+				floorContent[i][j] = rand.Intn(5)
+			}
+		}
+		// Enregistrer le terrain généré dans un fichier
+		err := writeFloorToFile("../floor-files/generated_floor.txt", floorContent)
+		if err != nil {
+			log.Fatalf("Erreur lors de l'écriture du fichier: %v", err)
+	}
+}
+
 	// On obtient la hauteur du tableau
 	height := len(floorContent)
 	// On obtient la largeur du tableau
@@ -73,4 +95,29 @@ func isZoneHomogeneous(grid [][]int, startX, startY, width, height int) (bool, i
 		}
 	}
 	return true, firstValue
+}
+
+
+// writeFloorToFile écrit le contenu du tableau floorContent dans un fichier
+func writeFloorToFile(fileName string, floorContent [][]int) error {
+    file, err := os.Create(fileName)
+    if err != nil {
+        return err
+    }
+    defer file.Close()
+
+    writer := bufio.NewWriter(file)
+    for _, row := range floorContent {
+        for _, cell := range row {
+            _, err := fmt.Fprintf(writer, "%d", cell)
+            if err != nil {
+                return err
+            }
+        }
+        _, err = fmt.Fprintln(writer)
+        if err != nil {
+            return err
+        }
+    }
+    return writer.Flush()
 }
