@@ -16,7 +16,7 @@ import (
 // Il faut faire attention à l'ordre d'affichage pour éviter d'avoir
 // des éléments qui en cachent d'autres.
 func (g *Game) Draw(screen *ebiten.Image) {
-	g.floor.Draw(screen)
+	g.floor.Draw(screen, int(g.camera.X), int(g.camera.Y))
 	g.character.Draw(screen, g.camera.X, g.camera.Y)
 
 	if configuration.Global.DebugMode {
