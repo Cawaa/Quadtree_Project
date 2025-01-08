@@ -28,6 +28,7 @@ import (
 //     (quadrillage, lecture dans un fichier, quadtree, etc)
 //   - FloorFile : le chemin d'un fichier où lire les informations sur le
 //     terrain si nécessaire
+//	 - Waterblock : si true impossible d'aller sur les blocs d'eau
 //
 // Les champs calculés à partir des précédents sont :
 //   - ScreenWidth, ScreenHeight : la largeur et la hauteur de l'écran
@@ -45,7 +46,7 @@ type Configuration struct {
 	FloorKind                     int
 	FloorFile                     string
 	Waterblock 					  bool
-	EauAnime 					  bool
+	RandomFloor					  bool
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`

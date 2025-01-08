@@ -5,23 +5,24 @@ import (
 	"log"
 	"os"
 	"strconv"
-
+	
+	
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/configuration"
 	"gitlab.univ-nantes.fr/jezequel-l/quadtree/quadtree"
 )
 
 // Init initialise les structures de données internes de f.
 func (f *Floor) Init() {
-	f.content = make([][]int, configuration.Global.NumTileY)
-	for y := 0; y < len(f.content); y++ {
-		f.content[y] = make([]int, configuration.Global.NumTileX)
-	}
+    f.content = make([][]int, configuration.Global.NumTileY)
+    for y := 0; y < len(f.content); y++ {
+        f.content[y] = make([]int, configuration.Global.NumTileX)
+    }
 
-	switch configuration.Global.FloorKind {
-	case FromFileFloor:
-		f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
-	case QuadTreeFloor:
-		f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
+    switch configuration.Global.FloorKind {
+    case FromFileFloor:
+        f.fullContent = readFloorFromFile(configuration.Global.FloorFile)
+    case QuadTreeFloor:
+        f.quadtreeContent = quadtree.MakeFromArray(readFloorFromFile(configuration.Global.FloorFile))
 	}
 }
 
@@ -56,3 +57,4 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 	}	
 	return floorContent
 }
+

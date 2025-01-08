@@ -9,6 +9,7 @@
     "CameraMode": 1,
     "FloorKind": 2,
     "FloorFile": "../floor-files/validation",
-    "Waterblock": true,
-    "EauAnime" : true
+    "Waterblock": false,
+    "EauAnime" : true,
+    "RandomFloor": true
 }
