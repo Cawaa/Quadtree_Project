@@ -17,8 +17,10 @@ func (f *Floor) Update(camXPos, camYPos int) {
 		f.animation = 0
 	}
 
+	
 	topLeftX := camXPos - configuration.Global.ScreenCenterTileX
 	topLeftY := camYPos - configuration.Global.ScreenCenterTileY
+
 	switch configuration.Global.FloorKind {
 	case GridFloor:
 		f.updateGridFloor(topLeftX, topLeftY)

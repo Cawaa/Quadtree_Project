@@ -55,7 +55,6 @@ func Load() {
 		log.Fatal(err)
 	}
 	CharacterImage = ebiten.NewImageFromImage(decoded)
-	
 	decoded, _, err = image.Decode(bytes.NewReader(waterBytes))
 	if err != nil {
 		log.Fatal(err)

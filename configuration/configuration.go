@@ -46,8 +46,8 @@ type Configuration struct {
 	FloorKind                     int
 	FloorFile                     string
 	Waterblock 					  bool
-	RandomFloor					  bool
-	WaterAnimated 			      bool
+	RandomFloor 				  bool
+	WaterAnimated 				  bool
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`

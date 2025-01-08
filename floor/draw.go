@@ -53,4 +53,3 @@ func (f Floor) Draw(screen *ebiten.Image, camerax, cameray int) {
 		}
 	}
 }
-	
