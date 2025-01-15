@@ -20,6 +20,26 @@ func (g *Game) Update() error {
 	g.character.Update(g.floor.Blocking(g.character.X, g.character.Y, g.camera.X, g.camera.Y))
 	g.camera.Update(g.character.X, g.character.Y)
 	g.floor.Update(g.camera.X, g.camera.Y)
+	
+	
+	if configuration.Global.Zoom{
+		if inpututil.IsKeyJustPressed(ebiten.KeySpace) {
+			configuration.Global.ScreenHeight -= configuration.Global.TileSize * configuration.Global.NumTileX / 2
+			configuration.Global.ScreenWidth -= configuration.Global.TileSize * configuration.Global.NumTileY / 2
+			configuration.Global.ScreenCenterTileX -= configuration.Global.TileSize / 6
+			configuration.Global.ScreenCenterTileY -= configuration.Global.TileSize / 6
+		}
+	
+
+
+		if inpututil.IsKeyJustReleased(ebiten.KeySpace) {
+			configuration.Global.ScreenHeight += configuration.Global.TileSize * configuration.Global.NumTileX / 2
+			configuration.Global.ScreenWidth += configuration.Global.TileSize * configuration.Global.NumTileY / 2
+			configuration.Global.ScreenCenterTileX += configuration.Global.TileSize / 6
+			configuration.Global.ScreenCenterTileY += configuration.Global.TileSize / 6
+		}
+	}
+
 
 	return nil
 }

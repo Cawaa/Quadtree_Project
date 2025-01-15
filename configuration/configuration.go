@@ -48,6 +48,7 @@ type Configuration struct {
 	Waterblock 					  bool
 	RandomFloor 				  bool
 	WaterAnimated 				  bool
+	Zoom						  bool
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
