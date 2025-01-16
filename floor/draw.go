@@ -15,7 +15,7 @@ func (f Floor) Draw(screen *ebiten.Image, camerax, cameray int) {
     for y := range f.content {
 		for x := range f.content[y] {
 			if configuration.Global.WaterAnimated {
-				// Si l'animation de l'eau est activÃ©e, on affiche l'eau animÃ©e (4) et les autres blocs.
+				// Si l'animation de l'eau est activé, on affiche l'eau animée (4) et les autres blocs.
 				if f.content[y][x] != -1 && f.content[y][x] != 4 {
 					op := &ebiten.DrawImageOptions{}
 					op.GeoM.Translate(float64(x*configuration.Global.TileSize), float64(y*configuration.Global.TileSize))

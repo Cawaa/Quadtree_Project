@@ -8,4 +8,8 @@ func (c *Character) Init(floorWidth, floorHeight int) {
 
 	c.X = floorWidth / 2
 	c.Y = floorHeight / 2
+
+
+	c.portail_actif = 0
+	c.tp_autorise = false
 }

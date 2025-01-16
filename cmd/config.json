@@ -12,5 +12,6 @@
     "Waterblock": true,
     "RandomFloor" : true,
     "WaterAnimated" : true,
-    "Zoom" : true
+    "Zoom" : true,
+    "Teleportation" : true
 }

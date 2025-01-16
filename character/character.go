@@ -5,6 +5,7 @@ const (
 	orientedLeft
 	orientedRight
 	orientedUp
+
 )
 
 // Character définit les charactéristiques du personnage.
@@ -30,4 +31,10 @@ type Character struct {
 	moving              bool
 	shift               int
 	animationFrameCount int
+	portail_actif 		int
+	tp_autorise			bool
+	portail_depart_x	int
+	portail_depart_y	int
+	portail_arrivee_x	int
+	portail_arrivee_y 	int
 }
