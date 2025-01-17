@@ -48,3 +48,59 @@ func (c Character) Draw(screen *ebiten.Image, camX, camY int) {
 	).(*ebiten.Image), op)
 
 }
+
+func AffichageEntree(c Character, screen *ebiten.Image, cameraX int, cameraY int) {
+	op := &ebiten.DrawImageOptions{}
+
+	// sortie
+	TileY := c.portail_depart_y - cameraY + configuration.Global.NumTileY/2
+	TileX := c.portail_depart_x - cameraX + configuration.Global.NumTileX/2 // Calcul des coordonnées relatives
+	op.GeoM.Translate(float64(TileX*configuration.Global.TileSize), float64(TileY*configuration.Global.TileSize))
+	screen.DrawImage(assets.FloorImage.SubImage(
+		image.Rect(80, 0, 96, 16),
+	).(*ebiten.Image), op)
+}
+
+func AffichageSortie(c Character, screen *ebiten.Image, cameraX int, cameraY int) {
+	// Le fonctionnement est le meme que AffichageEntree
+	op := &ebiten.DrawImageOptions{}
+
+	// sortie
+	TileY := c.portail_arrivee_y - cameraY + configuration.Global.NumTileY/2
+	TileX := c.portail_arrivee_x - cameraX + configuration.Global.NumTileX/2 // Calcul des coordonnées relatives
+	op.GeoM.Translate(float64(TileX*configuration.Global.TileSize), float64(TileY*configuration.Global.TileSize))
+	screen.DrawImage(assets.FloorImage.SubImage(
+		image.Rect(80, 0, 96, 16),
+	).(*ebiten.Image), op)
+
+}
+func (c *Character) DrawPortal(screen *ebiten.Image, cameraX int, cameraY int) { // Fonction de dessin du téléporteur
+	// entree
+	if c.portail_actif == 1 {
+		AffichageEntree(*c, screen, cameraX, cameraY)
+	}
+	// sortie
+	if c.portail_actif == 2 {
+		AffichageEntree(*c, screen, cameraX, cameraY)
+		AffichageSortie(*c, screen, cameraX, cameraY)
+
+	}
+}
+
+func (c *Character) UpdatePortalX(update int) {
+	if c.portail_actif > 0 {
+		c.portail_depart_x += update
+	}
+	if c.portail_actif > 1 {
+		c.portail_arrivee_x += update
+	}
+}
+
+func (c *Character) UpdatePortalY(update int) {
+	if c.portail_actif > 0 {
+		c.portail_depart_y += update
+	}
+	if c.portail_actif > 1 {
+		c.portail_arrivee_y += update
+	}
+}
