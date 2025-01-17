@@ -90,3 +90,33 @@ func (n *node) checkAndGetAsText(shift, step int) (asText string) {
 	asText = n.getAsText(shift, step)
 	return
 }
+
+func (q Quadtree) ToArray() [][]int {
+	// Initialiser un tableau 2D vide avec les dimensions du quadtree
+	array := make([][]int, q.height)
+	for i := range array {
+		array[i] = make([]int, q.width)
+	}
+
+	// Remplir le tableau en parcourant le quadtree
+	fillArrayFromNode(q.root, array)
+	return array
+}
+
+// fillArrayFromNode remplit un tableau 2D en parcourant un noeud du quadtree.
+func fillArrayFromNode(n *node, array [][]int) {
+	if n.isLeaf {
+		// Si le noeud est une feuille, remplir la zone correspondante dans le tableau
+		for i := n.topLeftY; i < n.topLeftY+n.height; i++ {
+			for j := n.topLeftX; j < n.topLeftX+n.width; j++ {
+				array[i][j] = n.content
+			}
+		}
+	} else {
+		// Si le noeud n'est pas une feuille, parcourir récursivement ses sous-noeuds
+		fillArrayFromNode(n.topLeftNode, array)
+		fillArrayFromNode(n.topRightNode, array)
+		fillArrayFromNode(n.bottomLeftNode, array)
+		fillArrayFromNode(n.bottomRightNode, array)
+	}
+}

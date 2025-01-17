@@ -40,3 +40,30 @@ func (f Floor) GetWidth() (width int) {
 	}
 	return
 }
+
+
+// GetHeightQuad retourne la hauteur du terrain représenté par le quadtree.
+// La hauteur est déterminée par le nombre de lignes dans le tableau représentant le quadtree.
+func (f Floor) GetHeightQuad() (height int) {
+	// Convertir le quadtree en tableau pour accéder à ses dimensions
+	array := f.quadtreeContent.ToArray()
+
+	// La hauteur est déterminée par le nombre de lignes dans le tableau
+	return len(array)
+}
+
+// GetWidthQuad retourne la largeur du terrain représenté par le quadtree.
+// La largeur est déterminée par le nombre de colonnes dans le tableau représentant le quadtree.
+func (f Floor) GetWidthQuad() (width int) {
+	// Convertir le quadtree en tableau pour accéder à ses dimensions
+	array := f.quadtreeContent.ToArray()
+
+	// Vérifier si le tableau n'est pas vide
+	if len(array) > 0 {
+		// La largeur est déterminée par le nombre de colonnes dans le tableau
+		return len(array[0])
+	}
+
+	// Si le tableau est vide, retourner 0
+	return 0
+}

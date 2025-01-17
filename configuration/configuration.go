@@ -4,6 +4,8 @@ import (
 	"encoding/json"
 	"log"
 	"os"
+	"fmt"
+	"bufio"
 )
 
 // Configuration définit les élèments de la configuration
@@ -35,6 +37,16 @@ import (
 //     en pixels (hors zone d'affichage pour le debug)
 //   - ScreenCenterTileX, ScreenCenterTileY : les coordonnées de la case
 //     au centre de l'écran, où sera placé la caméra.
+//	 - RandomFloor : si true, le terrain sera généré aléatoirement
+//   - WaterAnimated : si true, l'eau sera animée
+//   - Zoom : si true, la fonctionnalité de zoom sera activée
+//   - Teleportation : si true, la fonctionnalité de téléportation sera activée
+//   - CinematographicCamera : si true, la caméra sera utilisée pour des effets cinématographiques
+//   - CameraSmoothing : la valeur de lissage de la caméra
+//   - InfiniteGenExtension : si true, le terrain sera généré de manière infinie
+//   - RandomGenExtension : si true, le terrain sera généré aléatoirement
+//   - RandomWidht, RandomHeight : la largeur et la hauteur du terrain généré aléatoirement
+//   - FloorWidth, FloorHeigth : la largeur et la hauteur du terrain
 type Configuration struct {
 	DebugMode                     bool
 	NumTileX, NumTileY            int
@@ -52,6 +64,15 @@ type Configuration struct {
 	Teleportation 				  bool
 	CinematographicCamera         bool
 	CameraSmoothing               float64
+	InfiniteGenExtension 	      bool 
+	RandomGenExtension bool
+	RandomWidht        int
+	RandomHeight       int
+	FloorWidth                       int
+	FloorHeigth                      int
+
+
+
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`
@@ -84,8 +105,54 @@ func Load(configurationFileName string) {
 // setComputedFields se charge de remplir les champs calculés
 // de la configuration à partir des autres champs.
 func setComputedFields() {
+	if Global.RandomGenExtension {
+		Global.FloorWidth = Global.RandomWidht
+		Global.FloorHeigth = Global.RandomHeight
+	} else {
+		widhtFile, heightFile := getWidhtHeightOfFile(Global.FloorFile)
+		Global.FloorWidth = widhtFile
+		Global.FloorHeigth = heightFile
+	}
 	Global.ScreenWidth = Global.NumTileX * Global.TileSize
 	Global.ScreenHeight = Global.NumTileY * Global.TileSize
 	Global.ScreenCenterTileX = Global.NumTileX / 2
 	Global.ScreenCenterTileY = Global.NumTileY / 2
 }
+
+// getWidhtHeightOfFile lit un fichier et retourne la largeur et la hauteur du contenu du fichier.
+// La largeur est déterminée par le nombre de caractères dans la première ligne du fichier,
+// et la hauteur est déterminée par le nombre de lignes dans le fichier.
+func getWidhtHeightOfFile(fileName string) (width, height int) {
+	// Ouvrir le fichier en lecture
+	file, err := os.Open(fileName)
+	if err != nil {
+		// Si une erreur se produit lors de l'ouverture du fichier, afficher l'erreur et retourner
+		fmt.Println(err)
+		return
+	}
+	defer file.Close() // Fermer le fichier lorsque la fonction se termine
+
+	// Créer un scanner pour lire le fichier ligne par ligne
+	scanner := bufio.NewScanner(file)
+
+	// Initialiser les variables pour stocker la largeur et la hauteur
+	var ligneCount int
+	var colonneCount int
+
+	// Lire le fichier ligne par ligne
+	for scanner.Scan() {
+		// Incrémentation du compteur de lignes
+		ligneCount++
+
+		// Lire la première ligne pour déterminer la largeur
+		ligne := scanner.Text()
+		if ligneCount == 1 {
+			// La largeur est déterminée par le nombre de caractères dans la première ligne
+			colonneCount = len(ligne)
+		}
+	}
+
+	// Retourner la largeur et la hauteur
+	return colonneCount, ligneCount
+}
+

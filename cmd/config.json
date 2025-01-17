@@ -15,5 +15,6 @@
     "Zoom" : true,
     "Teleportation" : true,
     "CinematographicCamera": true,
-    "CameraSmoothing": 0.4
+    "CameraSmoothing": 0.4,
+    "InfiniteGenExtension" : true
 }
