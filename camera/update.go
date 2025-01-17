@@ -24,6 +24,12 @@ func (c *Camera) updateStatic() {}
 // entiers qui indiquent les coordonnées du personnage et place
 // la caméra au même endroit.
 func (c *Camera) updateFollowCharacter(characterPosX, characterPosY int) {
-	c.X = characterPosX
-	c.Y = characterPosY
+    if configuration.Global.CinematographicCamera {
+        smoothingFactor := configuration.Global.CameraSmoothing // Facteur de lissage (0.0 < facteur < 1.0)
+        c.X = int(float64(c.X)*(1-smoothingFactor) + float64(characterPosX)*smoothingFactor)
+        c.Y = int(float64(c.Y)*(1-smoothingFactor) + float64(characterPosY)*smoothingFactor)
+    } else {
+        c.X = characterPosX
+        c.Y = characterPosY
+    }
 }

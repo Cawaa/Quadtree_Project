@@ -50,6 +50,8 @@ type Configuration struct {
 	WaterAnimated 				  bool
 	Zoom						  bool
 	Teleportation 				  bool
+	CinematographicCamera         bool
+	CameraSmoothing               float64
 
 	ScreenWidth, ScreenHeight            int `json:"-"`
 	ScreenCenterTileX, ScreenCenterTileY int `json:"-"`

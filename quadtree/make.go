@@ -28,8 +28,8 @@ func MakeFromArray(floorContent [][]int) (q Quadtree) {
 		err := writeFloorToFile("../floor-files/generated_floor.txt", floorContent)
 		if err != nil {
 			log.Fatalf("Erreur lors de l'écriture du fichier: %v", err)
+		}
 	}
-}
 
 	// On obtient la hauteur du tableau
 	height := len(floorContent)

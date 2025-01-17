@@ -13,5 +13,7 @@
     "RandomFloor" : true,
     "WaterAnimated" : true,
     "Zoom" : true,
-    "Teleportation" : true
+    "Teleportation" : true,
+    "CinematographicCamera": true,
+    "CameraSmoothing": 0.4
 }
