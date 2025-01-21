@@ -31,13 +31,7 @@ import (
 //   - FloorFile : le chemin d'un fichier où lire les informations sur le
 //     terrain si nécessaire
 //	 - Waterblock : si true impossible d'aller sur les blocs d'eau
-//
-// Les champs calculés à partir des précédents sont :
-//   - ScreenWidth, ScreenHeight : la largeur et la hauteur de l'écran
-//     en pixels (hors zone d'affichage pour le debug)
-//   - ScreenCenterTileX, ScreenCenterTileY : les coordonnées de la case
-//     au centre de l'écran, où sera placé la caméra.
-//	 - RandomFloor : si true, le terrain sera généré aléatoirement
+// 	 - RandomFloor : si true, le terrain sera généré aléatoirement
 //   - WaterAnimated : si true, l'eau sera animée
 //   - Zoom : si true, la fonctionnalité de zoom sera activée
 //   - Teleportation : si true, la fonctionnalité de téléportation sera activée
@@ -47,6 +41,13 @@ import (
 //   - RandomGenExtension : si true, le terrain sera généré aléatoirement
 //   - RandomWidht, RandomHeight : la largeur et la hauteur du terrain généré aléatoirement
 //   - FloorWidth, FloorHeigth : la largeur et la hauteur du terrain
+//
+// Les champs calculés à partir des précédents sont :
+//   - ScreenWidth, ScreenHeight : la largeur et la hauteur de l'écran
+//     en pixels (hors zone d'affichage pour le debug)
+//   - ScreenCenterTileX, ScreenCenterTileY : les coordonnées de la case
+//     au centre de l'écran, où sera placé la caméra.
+
 type Configuration struct {
 	DebugMode                     bool
 	NumTileX, NumTileY            int

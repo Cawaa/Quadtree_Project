@@ -57,13 +57,9 @@ func (f Floor) GetHeightQuad() (height int) {
 func (f Floor) GetWidthQuad() (width int) {
 	// Convertir le quadtree en tableau pour accéder à ses dimensions
 	array := f.quadtreeContent.ToArray()
-
-	// Vérifier si le tableau n'est pas vide
 	if len(array) > 0 {
 		// La largeur est déterminée par le nombre de colonnes dans le tableau
 		return len(array[0])
 	}
-
-	// Si le tableau est vide, retourner 0
 	return 0
 }

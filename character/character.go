@@ -23,6 +23,15 @@ const (
 //     coordonnées absolues.
 //   - animationFrameCount : le nombre d'appels à update (ou de 1/60 de seconde) qui
 //     ont eu lieu depuis la dernière étape d'animation.
+//   - 	portail_actif : le nombre de portail actif
+// 	 - tp_autorise : indique si la teleportation est autorisé
+//	 - portail_depart_x	: coordonée en x du portail de départ
+//	 - portail_depart_y	: coordonée en y du portail de départ
+//	 - portail_arrivee_x : coordonée en x du portail d'arrivé
+// 	 - portail_arrivee_y : coordonée en y du portail d'arrivé
+
+
+
 type Character struct {
 	X, Y                int
 	orientation         int

@@ -33,20 +33,18 @@ func (f *Floor) Init() {
 // lecture du contenu d'un fichier représentant un terrain
 // pour le stocker dans un tableau
 func readFloorFromFile(fileName string) (floorContent [][]int) {
-	// Ouvrir le fichier
+	
 	file, err := os.Open(fileName)
 	if err != nil {
 		log.Fatal(err)
 	}
 	defer file.Close()
 
-	// Scanner le fichier ligne par ligne
+	
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
-		line := scanner.Text() // lire une ligne
+		line := scanner.Text() 
 		row := []int{}         // initialiser une ligne du tableau
-
-		// Parcourir chaque caractère de la ligne et le convertir en entier
 		for _, char := range line {
 			cell, err := strconv.Atoi(string(char)) // conversion en entier
 			if err != nil {
@@ -56,7 +54,7 @@ func readFloorFromFile(fileName string) (floorContent [][]int) {
 			row = append(row, cell) // ajouter l'entier à la ligne
 		}
 
-		// Ajouter la ligne au tableau floorContent
+		
 		floorContent = append(floorContent, row)
 	}	
 	return floorContent
@@ -166,28 +164,22 @@ func (f *Floor) GenerateNewChunk(direction int) {
 // La largeur est déterminée par le nombre de caractères dans la première ligne du fichier,
 // et la hauteur est déterminée par le nombre de lignes dans le fichier.
 func getWidhtHeightOfFile(fileName string) (width, height int) {
-	// Ouvrir le fichier en lecture
-	// La fonction os.Open ouvre le fichier en lecture et retourne un objet file
 	file, err := os.Open(fileName)
 	if err != nil {
-		// Si une erreur se produit lors de l'ouverture du fichier, afficher l'erreur et retourner
+		
 		fmt.Println(err)
 		return
 	}
-	defer file.Close() // Fermer le fichier lorsque la fonction se termine
+	defer file.Close() 
 
-	// Créer un scanner pour lire le fichier ligne par ligne
-	// La fonction bufio.NewScanner crée un objet scanner qui lit le fichier ligne par ligne
+	
 	scanner := bufio.NewScanner(file)
 
 	// Initialiser les variables pour stocker la largeur et la hauteur
 	var ligneCount int
 	var colonneCount int
-
-	// Lire le fichier ligne par ligne
-	// La fonction scanner.Scan lit la ligne suivante du fichier et retourne true si la ligne est lue avec succès
+	
 	for scanner.Scan() {
-		// Incrémentation du compteur de lignes
 		ligneCount++
 
 		// Lire la première ligne pour déterminer la largeur
@@ -198,7 +190,7 @@ func getWidhtHeightOfFile(fileName string) (width, height int) {
 		}
 	}
 
-	// Retourner la largeur et la hauteur
+
 	return colonneCount, ligneCount
 }
 
@@ -222,6 +214,6 @@ func generateRandomFloor(width, height int) [][]int {
 		}
 	}
 
-	// Retourner le tableau généré
+	
 	return floorContent
 }

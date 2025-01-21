@@ -59,5 +59,5 @@ func Load() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	WaterImage = ebiten.NewImageFromImage(decoded)
+	WaterImage = ebiten.NewImageFromImage(decoded) // Gère l'image pour l'eau animé
 }
