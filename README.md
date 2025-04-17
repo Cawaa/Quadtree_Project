@@ -1,3 +1,7 @@
-# project-quadtree
-
-Code source initial pour le projet d'introduction au développement (R1.01) et de SAÉ implémentation d'un besoin client (SAE1.01).
+# Project-quadtree
+Projet Quadtree réalisé dans le cadre de la SAÉ implémentation d'un besoin client (SAE1.01) 
+# Comment lancer 
+Une fois l'archive extraite :
+- Se rendre dans le dossier cmd
+- Faire un go build
+- Executer le fichier : sur linux "./cmd", sur windows "./cmd.exe" 
